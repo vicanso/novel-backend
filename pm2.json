@@ -1,0 +1,10 @@
+{
+  "name": "novel-backend",
+  "instances": 2,
+  "merge_logs": true,
+  "max_memory_restart": "200M",
+  "script": "app.js",
+  "log_file": "/var/log/novel-backend.log",
+  "error_file": "/var/log/novel-backend-error.log",
+  "out_file": "/var/log/novel-backend-out.log"
+}

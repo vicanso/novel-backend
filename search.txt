@@ -1,0 +1,133 @@
+
+<!DOCTYPE html><!DOCTYPE html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><!-- 360安全游览器使用webkit极速核 --><meta name="renderer" content="webkit"/><!-- IE使用它支持的最高模式 --><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta property="wb:webmaster" content="bde65bab61e33f62"/><meta name="description" content="搜索最新最快原创小说,搜索您最喜爱的小说,尽在创世中文网。"/><meta name="keywords" content="搜索小说,搜书,搜小说,搜图书,搜作者,搜图书"/><meta property="qc:admins" content="151626767763051673016375"/><title>搜书,搜小说,小说搜索_创世中文</title><link rel="shortcut icon" type="image/x-icon" href="http://img1.chuangshi.qq.com/chuangshi/p1/ico/c_mini_logo.ico"/><link rel="Bookmark" type="image/x-icon" href="http://img1.chuangshi.qq.com/chuangshi/p1/ico/c_mini_logo.ico"/><script type="text/javascript">        var userLang = "zhs";
+    </script><link rel="stylesheet" type="text/css" href="http://sta1.chuangshi.qq.com/chuangshi/0827101310/css/merge/base.css" /><script type="text/javascript" src="http://sta1.chuangshi.qq.com/chuangshi/0827101310/js/merge/base.js"></script><script type="text/javascript">        var userLang = "zhs";
+
+        $(function(){
+            var webSite = "chuangshi";
+
+            var getLoginStatusAjaxUrl = "https://passport.book.qq.com/index/getStatus.html",
+                checkTokenAjaxUrl = "/api/checkToken.html";
+
+            var getLoginPopupHtmlAjaxUrl = "https://passport.book.qq.com/index/getPopupLogin.html";
+
+            //未登录时，更新登录状态
+            CS.ssoLogin.init(getLoginStatusAjaxUrl, checkTokenAjaxUrl, webSite);
+            CS.ssoLogin.getLoginStatus();
+
+            //初始化登录浮层组件
+            CS.loginPopup.init(getLoginPopupHtmlAjaxUrl, webSite);
+
+            //页面特定链接/按钮点击分析
+            $.getScript("http://pingjs.qq.com/tcss.ping.js");
+        });
+    </script></head><link rel="stylesheet" type="text/css" href="http://sta1.chuangshi.qq.com/chuangshi/0827101310/css/merge/search.css" /><body><!-- 3G站提示 --><div id="top3GBanner" class="top3G" style="display:none;"><div id="top3g_inner"><a id="click3g" href="http://3g.chuangshi.qq.com"></a><a id="close_3g" href="javascript:"></a><img id="top3g_img" width="1000" height="300" src=""></div></div><!-- 顶部导航 --><div id="topNav" class="top_nav" style="background-color:#575757;"></div><!-- 顶部导航模板 --><textarea id="topNavBarTpl" style="display:none;"><div class="top_nav_center cf"><div class="toolbar"><a attr="inner:toggleSiteListBtn;" class="qqSite" href="http://book.qq.com" target="_blank">腾讯文学</a><span class="navline">|</span><a attr="click:addFavorite;" class="favorite" href="javascript:">一键收藏</a><div attr="inner:siteListDropdown;" class="navDownLoad"><a class="downStar" href="http://www.qq.com/" onclick="pgvSendClick({hottag:'ISD.SHOW.INDEX.LINK01'});" target="_blank">腾讯网首页</a><a class="downIos" href="http://book.qq.com/act/reader/index.html" target="_blank">iOS下载</a><a class="downAn" href="http://book.qq.com/act/reader/index.html" target="_blank">安卓端下载</a></div></div><div class="loginbar"><%if isLogin%><span class="login_after"><a class="login user" href="http://account.book.qq.com">                        欢迎您，<i><%=userInfo.Nickname ? userInfo.Nickname : ''%></i></a><a class="exit" href="/public/logout.html">退出</a><span class="navline">|</span></span><a attr="inner:toggleBookshelfBtn;" class="myreader" href="http://account.book.qq.com/userfavorite/index.html">我的书架</a><%else%><span class="login_before"><a attr="click:openLoginPopup;" class="login current btnpoplogin" href="javascript:;">登录</a><a class="reg" target="_blank" href="http://zc.qq.com/chs/index.html?from=pt">注册</a><span class="navline">|</span></span><a attr="inner:toggleRecentReadBtn;" class="myreader" href="javascript:">最近阅读</a><%/if%><a attr="inner:toggleUserCenterBtn;" class="user_center" href="http://account.book.qq.com">个人中心</a><a class="pay " href="http://pay.qq.com/ipay/mobile-game/index.shtml?game=txwxsb" target="_blank">充值</a><span class="navline">|</span><a attr="inner:toggleChannelBtn;" class="more_nav" href="javascript:">导航</a><!-- 书架下拉菜单 --><div attr="inner:bookshelfDropdown;" class="bookrack"><%if isLogin%><p><span class="ccc">藏书：</span><span><%=userInfo.collectBookNum ? userInfo.collectBookNum : 0%></span>本
+                    </p><div class="nav_hover_list cf"><a href="http://account.book.qq.com/userfavorite/index.html?bookshelf_show=2">最近阅读</a><span class="booktags"><%if userInfo.bookshelfList && userInfo.bookshelfList.length%><%each userInfo.bookshelfList as bookshelf i%><a href="http://account.book.qq.com/userfavorite/index.html?Favoriteid=<%=bookshelf.IDX%>"><%=bookshelf.Favoritename%></a><%/each%><%/if%></span></div><%else%><div class="nav_hover_list cf"><span class="booktags"><%if userInfo.recentReadList && userInfo.recentReadList.length%><%each userInfo.recentReadList as book i%><a href="<%=book.bookUrl%>"><%=book.bookName%></a><%/each%><%else%>                                    没有阅读作品
+                                <%/if%></span></div><%/if%></div><!-- 用户中心下拉菜单  --><div attr="inner:userCenterDropdown;" class="user_menu"><%if isLogin%><p><span><a class="member_html" target="_blank"
+                               href="http://account.book.qq.com/usermember/index/show/1.html"><img alt="用户等级" title="用户等级"
+                                     src="http://img1.chuangshi.qq.com/chuangshi/p1/ico/user/<%='Grade' in userInfo ? userInfo.Grade : 0%>.png"/></a></span><span><a class="member_html" target="_blank"
+                               href="http://account.book.qq.com/usermember/index/show/2.html"><img alt="VIP等级" title="VIP等级"
+                                     src="http://img1.chuangshi.qq.com/chuangshi/p1/ico/VIP/<%='VIP' in userInfo ? userInfo.VIP : 0%>.png"/></a></span></p><%/if%><div class="nav_hover_list cf"><a href="http://account.book.qq.com/userfavorite/index.html">我的书架</a><a href="http://account.book.qq.com/usercenter/index.html">账户设置</a><a class="a_nobg" href="http://account.book.qq.com/usermoney/index.html">账务中心</a><a class="a_nobg" href="http://account.book.qq.com/usermember/author.html">作家中心</a></div></div><!-- 导航下拉菜单 --><div attr="inner:channelDropdown;" class="more_box"><div class="nav_hover_list cf"><a href="http://chuangshi.qq.com/bk/huan/" title="玄幻·奇幻">玄幻·奇幻</a><a href="http://chuangshi.qq.com/bk/xia/" title="武侠·仙侠">武侠·仙侠</a><a href="http://chuangshi.qq.com/bk/chun/" title="都市·职场">都市·职场</a><a href="http://chuangshi.qq.com/bk/shi/" title="历史·军事">历史·军事</a><a href="http://chuangshi.qq.com/bk/you/" title="游戏·竞技">游戏·竞技</a><a href="http://chuangshi.qq.com/bk/ke/" title="科技·灵异">科技·灵异</a><a href="http://chuangshi.qq.com/bk/tong/" style="width:37px;" title="同人">同人</a><a style="width:1px; margin-left:-6px;">·</a><a href="http://chuangshi.qq.com/bk/duan/" style="width:37px;" title="短篇">短篇</a><a href="http://chuangshi.qq.com/bk/yan/" title="女生·言情">女生·言情</a><a href="http://chuangshi.qq.com/bk/" title="书库" style="width:37px;">书库</a><a style="width:1px; margin-left:-6px;">·</a><a href="http://book.qq.com/cdkey" title="兑奖" style="width:37px;" target="_blank">兑奖</a></div></div><%if isLogin%><div id="pointy_msg"></div><div id="topnav_msg"><a class="red" href="http://account.book.qq.com/usermessage/index.html">有新短消息</a></div><%/if%></div></div></textarea><!--求登录浮层--><div id="PleaseLogin" style="display:none;"><div id="PLoginImg"><a id="PLoginBtn" href="javascript:" title="求登录"></a><a id="PLoginBtnClose" href="javascript:" title="关闭"></a></div></div><!-- 绑定QQ的提示浮层 --><div id="qqBindTip" style="display:none;"><a href="javascript:" id="qqBindClose" title="关闭"></a><a href="http://account.book.qq.com/usercenter/usercenter.html" id="bindQQLink" title="立即绑定QQ"></a></div><script type="text/javascript">    $(function () {
+        var top3gImgUrl = "http://img1.chuangshi.qq.com/chuangshi/p1/d_banner/top3g.gif",
+            getUserInfoAjaxUrl = "/public/showhead.html", //获取用户信息
+            getUserNewMsgUrl = "http://account.book.qq.com/usermessage/getMessageNew.html";
+
+        //用户的提示浮层
+        CS.remindPopup.init(top3gImgUrl);
+        //初始化顶部导航
+        CS.topNav.init(getUserInfoAjaxUrl, getUserNewMsgUrl);
+    });
+</script><div class="top_nav2"><div class="mainnav"><a href="http://chuangshi.qq.com" title="首页">首页</a>&nbsp;<a class="red" href="http://chuangshi.qq.com/bk/" title="书库">书库</a>&nbsp;<a rel="nofollow" href="http://chuangshi.qq.com/search/" title="搜书">搜书</a>&nbsp;<a href="http://chuangshi.qq.com/bang/" title="排行榜">排行榜</a>&nbsp;<a class="red dotted" href="http://chuangshi.qq.com/bk/huan/" title="玄幻">玄幻</a>·<a class="red" href="http://chuangshi.qq.com/bk/huan/" title="奇幻">奇幻</a>&nbsp;<a href="http://chuangshi.qq.com/bk/xia/" title="武侠">武侠</a>·<a href="http://chuangshi.qq.com/bk/xia/" title="仙侠">仙侠</a>&nbsp;<a href="http://chuangshi.qq.com/bk/chun/" title="都市">都市</a>·<a href="http://chuangshi.qq.com/bk/chun/" title="职场">职场</a>&nbsp;<a href="http://chuangshi.qq.com/bk/shi/" title="历史">历史</a>·<a href="http://chuangshi.qq.com/bk/shi/" title="军事">军事</a>&nbsp;<a class="dotted" href="http://chuangshi.qq.com/bk/you/" title="游戏">游戏</a>·<a href="http://chuangshi.qq.com/bk/you/" title="竞技">竞技</a>&nbsp;<a href="http://chuangshi.qq.com/bk/ke/" title="科幻">科幻</a>·<a href="http://chuangshi.qq.com/bk/ke/" title="灵异">灵异</a>&nbsp;<a href="http://chuangshi.qq.com/bk/tong/" title="同人">同人</a>·<a href="http://chuangshi.qq.com/bk/duan/" title="短篇">短篇</a>&nbsp;<a class="red" href="http://yunqi.qq.com" title="女生">女生</a>·<a class="red" href="http://yunqi.qq.com" title="言情">言情</a>&nbsp;<a rel="nofollow" class="red dotted" target="_blank" href="http://pages.book.qq.com/pages/2015/cssp/theme1.html" title="作家福利">作家福利</a>&nbsp;<a rel="nofollow" href="http://account.book.qq.com/usermember/author.html" title="作家专区">作家专区</a>&nbsp;<a class="red dotted" href="http://bbs.chuangshi.qq.com" title="论坛" target="_blank">论坛</a>&nbsp;<a rel="nofollow" href="http://chuangshi.qq.com/about/questions_newuser.html" title="帮助">帮助</a></div></div><div class="wrap"><div class="topline"></div><div class="result cf"><!-- 左侧：搜索范围 --><div class="sdetail"><div class="slogo"><a href="javascript:"><img src="http://img1.chuangshi.qq.com/chuangshi/p1/search/logo.png" width="136" height="68"/></a></div><div class="searchresult"><h1 class="st">搜索范围</h1><ul id="searchRangeList"><li class="tt"><b>作品分类</b><i class="right tx"><a href="javascript:" class="green criteria" criteria_type="category" criteria_val="">不限</a></i></li><li class="nev"><i class="left"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&category=1&updatetime=0" class="green criteria" criteria_type="category"
+                           criteria_val="1">玄幻</a></i><i class="right"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&category=2&updatetime=0" class="green criteria" criteria_type="category"
+                           criteria_val="2">奇幻</a></i></li><li class="nev"><i class="left"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&category=3&updatetime=0" class="green criteria" criteria_type="category"
+                           criteria_val="3">武侠</a></i><i class="right"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&category=4&updatetime=0" class="green criteria" criteria_type="category"
+                           criteria_val="4">仙侠</a></i></li><li class="nev"><i class="left"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&category=5&updatetime=0" class="green criteria" criteria_type="category"
+                           criteria_val="5">都市</a></i><i class="right"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&category=6&updatetime=0" class="green criteria" criteria_type="category"
+                           criteria_val="6">历史</a></i></li><li class="nev"><i class="left"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&category=7&updatetime=0" class="green criteria" criteria_type="category"
+                           criteria_val="7">军事</a></i><i class="right"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&category=8&updatetime=0" class="green criteria" criteria_type="category"
+                           criteria_val="8">灵异</a></i></li><li class="nev"><i class="left"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&category=9&updatetime=0" class="green criteria" criteria_type="category"
+                           criteria_val="9">科幻</a></i><i class="right"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&category=10&updatetime=0" class="green criteria" criteria_type="category"
+                           criteria_val="10">游戏</a></i></li><li class="nev"><i class="left"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&category=11&updatetime=0" class="green criteria" criteria_type="category"
+                           criteria_val="11">竞技</a></i><i class="right"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&category=12&updatetime=0" class="green criteria" criteria_type="category"
+                           criteria_val="12">同人</a></i></li><li class="nev"><i class="left"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&category=13&updatetime=0" class="green criteria" criteria_type="category"
+                           criteria_val="13">职场</a></i><i class="right"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&category=14&updatetime=0" class="green criteria" criteria_type="category"
+                           criteria_val="14">社会同乡</a></i></li><li class="tt"><b>更新时间</b><i class="right tx"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&updatetime=0&category=0" class="green criteria" criteria_type="updatetime" criteria_val="0">不限</a></i></li><li class="nev"><i class="left"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&updatetime=1&category=0" class="green criteria" criteria_type="updatetime" criteria_val="1">三天内</a></i><i class="right"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&updatetime=2&category=0" class="green criteria" criteria_type="updatetime" criteria_val="2">一周内</a></i></li><li class="nev"><i class="left"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&updatetime=3&category=0" class="green criteria" criteria_type="updatetime" criteria_val="3">一月内</a></i><i class="right"><a href="http://chuangshi.qq.com/search/searchindex?type=chuangshi&wd=七界武神&updatetime=4&category=0" class="green criteria" criteria_type="updatetime" criteria_val="4">一年内</a></i></li></ul></div></div><!-- 右侧：搜索结果 --><div class="show"><!--顶部搜索框--><div class="searchbb"><!--鼠标点击后文字消失--><input id="searchTop_input" type="text" class="sinput shoushubox gray" maxlength="70"
+                       value="冲天斗神" style="color:Gray;" autocomplete="off"/><div class="submit"><a id="searchTop_submitBtn" href="javascript:"><img src="http://img1.chuangshi.qq.com/chuangshi/p1/search/searchsubmit.jpg" width="92" height="43" alt="搜索"/></a></div><!-- 搜索类型 --><div class="soushu_select"><input id="type1" name="searchTop_type" type="radio" value="all"/><label for="type1">全部</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="type2" name="searchTop_type" type="radio" value="chuangshi"/><label for="type2">创世</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="type3" name="searchTop_type" type="radio" value="yunqi"/><label for="type3">云起</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="type4" name="searchTop_type" type="radio" value="dushu"/><label for="type4">图书</label></div></div><div id="ListHTMl" class="searchnev"><!--搜索 小说列表--><div class="info"><b>搜索结果：</b><!--共有“<span>七界武神</span>”作品共 1 部--></div><ul id="searchResultList" class="search_result_list"><li class="cf"><div class="search_r_img"><a href="http://chuangshi.qq.com/bk/xh/243446.html?sword=七界武神" target="_blank"><img src="http://chuangshi.qq.com/Public/mainsite/Uploads/2014-04-30/5360cc5c03c43.jpg" width="120" height="150"/></a><p><em>358.1万字</em><i>连载</i></p></div><div class="search_r_info"><h1><a class="gray3" href="http://chuangshi.qq.com/bk/xh/243446.html?sword=七界武神" target="_blank"><span class="red">七界</span><span class="red">武神</span></a></h1><p>                    作者：<b><a class="gray3" href="http://account.book.qq.com/bk/author/ADFQPwdvWWJcNQtiV2BTZwA7" target="_blank">叶之凡</a></b></p><p>                    分类：<a class="green"
+                          href="http://chuangshi.qq.com/bk/xh/xx20003/"
+                          target="_blank">[异界]</a>&nbsp;
+                    标签：
+                    <a   class="green" href="javascript:void(0)">穿越</a>&nbsp;<a   class="green" href="javascript:void(0)">升级文</a>&nbsp;<a   class="green" href="javascript:void(0)">无敌文</a>&nbsp;</p><p class="search_i">简介：<em class="gray">华夏特种兵穿越武者世界，得到上古魔祖吞噬魔功，练成了吞噬体质，从而踏上巅峰，横扫天下！</em></p><p>                    最新章节：
+                    <a class="green"
+                       href="http://chuangshi.qq.com/bk/xh/243446-r-1147.html?sword=七界武神"
+                       target="_blank">第1144章 赌战 （2015-08-30 21:47:37）</a></p><a class="s_add_shlef" href="javascript:"  bid="243446">加入书架</a><a class="s_q_read" href="http://chuangshi.qq.com/bk/xh/243446.html?sword=七界武神" target="_blank">在线阅读</a></div></li></ul></div><div id="pageHTMl" class="pagectrl">      </div><div class="searchMoreBox"><h3 class="cf"><a class="fr" href="http://zhannei.baidu.com/cse/search?s=4216906708227295410&q=%E4%B8%83%E7%95%8C%E6%AD%A6%E7%A5%9E" target="_blank">更多</a>查看更多搜索内容</h3></div><br><!-- 底部搜索框 --><div class="searchbb"><input id="searchBottom_input" type="text" class="sinput shoushubox gray" maxlength="70" value="剑动山河"
+                       style="color:Gray;" autocomplete="off"/><div class="submit"><a id="searchBottom_submitBtn" href="javascript:"><img src="http://img1.chuangshi.qq.com/chuangshi/p1/search/searchsubmit.jpg" width="92" height="43" alt="搜索"/></a></div><!-- 搜索类型 --><div class="soushu_select"><input id="type1" name="searchBottom_type" type="radio" value="all"><label for="type1">全部</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="type2" name="searchBottom_type" type="radio" value="chuangshi"><label for="type2">创世</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="type3" name="searchBottom_type" type="radio" value="yunqi"><label for="type3">云起</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="type4" name="searchBottom_type" type="radio" value="dushu"><label for="type4">图书</label></div></div></div></div><div class="footer"><div class="foot_nav"><a href="/about/about_us.html" target="_blank" rel="external nofollow">关于我们</a><span>|</span><a href="http://account.book.qq.com/usermember/author.html" target="_blank" rel="external nofollow">作者投稿</a><span>|</span><a href="/about/join_us.html" target="_blank" rel="external nofollow">诚聘英才</a><span>|</span><a href="/public/termsofuse.html" target="_blank" rel="external nofollow">服务协议</a><span>|</span><a href="/public/banquan.html" target="_blank" rel="external nofollow">版权声明</a><span>|</span><a href="http://chuangshi.qq.com/about/sitemap.html" target="_blank" rel="external">网站地图</a><span>|</span><a href="/about/questions_newuser.html" target="_blank" rel="external nofollow">用户指南</a><span>|</span><a href="/about/contact_us.html" target="_blank" rel="external nofollow">联系我们</a></div><div class="foot_copy_right"><p>      Copyright (C) 2015 chuangshi.qq.com All Rights Reserved 上海阅闻信息技术有限公司 版权所有
+      <a class="gray" href="http://yun.qq.com" target="_blank" rel="external nofollow">本网站由腾讯云提供服务器和带宽支持</a></p><p>      粤府新函[2001]87号 粤网文[2011]0483-070号 网络视听许可证1904073号 增值电信业务经营许可证：粤B2-20090059 B2-20090028
+    </p></div><div id="icp"><a href="http://www.sznet110.gov.cn/netalarm/index.jsp" target="_blank" rel="external nofollow"><img width="122" height="52" src="http://img1.chuangshi.qq.com/chuangshi/p1/footer_img1.png"></a><a href="http://www.sznet110.gov.cn/webrecord/innernet/Welcome.jsp?bano=4403101010155" target="_blank" rel="external nofollow"><img width="122" height="52" src="http://img1.chuangshi.qq.com/chuangshi/p1/footer_img2.png"></a><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=0272000112400002" target="_blank" rel="external nofollow"><img width="122" height="52" src="http://img1.chuangshi.qq.com/chuangshi/p1/footer_img3.png"></a><a href="http://net.china.com.cn/index.htm" target="_blank" rel="external nofollow"><img width="122" height="52" src="http://img1.chuangshi.qq.com/chuangshi/p1/footer_img4.png"></a><a href="http://www.wenming.cn/" target="_blank" rel="external nofollow"><img width="122" height="52" src="http://img1.chuangshi.qq.com/chuangshi/p1/footer_img5.png"></a><a href="http://www.shjbzx.cn/" target="_blank" rel="external nofollow"><img width="122" height="52" src="http://img1.chuangshi.qq.com/chuangshi/p1/footer_img6.png" ></a></div></div><script type="text/javascript">	$(function(){
+		var requestStatLogUrl = "http://account.book.qq.com/statlog/index.html",
+			requestStatLogData = {
+				'site' : "cs",
+				'url' : "/search/searchindex?type=all&amp;wd=%E4%B8%83%E7%95%8C%E6%AD%A6%E7%A5%9E",
+				'bid' : '',
+				'uuid' : '0'
+			};
+
+		var refreshKeyUrl = "https://passport.book.qq.com/index/refreshkey.html";
+
+		//访问统计
+		function _requestStatLog(){
+			var params = [],
+				url = '';
+			$.each(requestStatLogData, function(name, val){
+				params.push(name +'='+ encodeURIComponent(val));
+			});
+			url = requestStatLogUrl +'?'+ params.join('&');
+
+			if(document.referrer){
+	            url += '&ref='+ encodeURIComponent(document.referrer);
+	        }
+
+			new Image().src = url;
+		}
+
+		//刷新登录态
+		function _refreshKey(){
+			new Image().src = refreshKeyUrl;
+		}
+
+		_requestStatLog();
+		setInterval(_refreshKey, 1800000); //每30分钟刷新一次
+
+		//用户行为日志
+		$.getScript("http://sta1.chuangshi.qq.com/common/statistics/user.min.js", function() {
+			if(CS.statistics && CS.statistics.user){
+				CS.statistics.user.logBehavior();
+			}
+		});
+
+					$.getScript("http://tajs.qq.com/stats?sId=34321758");
+			$.getScript("http://tajs.qq.com/stats?sId=24923765", function() {
+				//点击流
+				$.getScript("http://pingjs.qq.com/ping_tcss_ied.js", function() {
+					if (typeof(pgvMain) === 'function') {
+						pgvMain();
+					}
+				});
+			});
+			});
+</script></div><script type="text/javascript" src="http://sta1.chuangshi.qq.com/chuangshi/0827101310/js/merge/search_result.js"></script><script type="text/javascript">    var url = "/search",
+            search_type = "all", //搜索类型
+            search_value = "七界武神", //搜索内容
+            category = "0", //搜索范围：作品分类
+            updatetime = "0", //搜索范围：更新时间
+            agreement = "", //屏蔽
+            createTime = ""; //屏蔽；：创建时间
+
+    $(document).ready(function () {
+        CS.page.search.searchResult.init(url, search_type, search_value, category, updatetime, agreement, createTime);
+    });
+</script></body></html>
