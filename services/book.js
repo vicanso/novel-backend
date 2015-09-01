@@ -3,10 +3,13 @@ const mongodb = localRequire('helpers/mongodb');
 const httpRequst = localRequire('helpers/http-request');
 const chuangshi = localRequire('services/chuangshi');
 const errors = localRequire('errors');
+const debug = localRequire('helpers/debug');
 const _ = require('lodash');
 exports.add = add;
 exports.get = get;
 exports.update = update;
+exports.list = list;
+exports.count = count;
 
 /**
  * [add description]
@@ -77,4 +80,33 @@ function* update(id) {
   //   let chapters = yield chuangshi.chapters(chuangshiId);
   //   console.dir(chapters[0]);
   // }
+}
+
+/**
+ * [list description]
+ * @param  {[type]} conditions [description]
+ * @param  {[type]} options [description]
+ * @param  {[type]} fields [description]
+ * @return {[type]}        [description]
+ */
+function* list(conditions, options, fields) {
+  debug('book query conditions:%j, options:%j, fields:%s', conditions,
+    options,
+    fields);
+  let Book = mongodb.model('Book');
+  let docs = yield Book.find(conditions, fields).setOptions(options).exec();
+  return _.map(docs, function(doc) {
+    return doc.toJSON();
+  });
+}
+
+/**
+ * [count description]
+ * @param  {[type]} conditions [description]
+ * @return {[type]}            [description]
+ */
+function* count(conditions) {
+  debug('book count conditions:%j', conditions);
+  let Book = mongodb.model('Book');
+  return yield Book.count(conditions).exec();
 }

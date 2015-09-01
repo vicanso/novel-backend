@@ -31,10 +31,13 @@ function* search(name, author) {
     let reg =
       /([\S\s]+)作者：([\S\s]+)分类：([\S\s]+)标签：([\S\s]+)简介：([\S\s]+)最新章节：/gmi;
     let regResult = reg.exec(item.find('.search_r_info').text());
+    if (!regResult || regResult.length < 5) {
+      return;
+    }
     let name = regResult[1].trim();
     let author = regResult[2].trim();
     let category = regResult[3].trim().replace(/[\[\]]/g, '');
-    let tags = regResult[4].trim().split(' ');
+    let tags = regResult[4].trim().split(/\s/);
     let desc = regResult[5].trim();
     let src = {
       type: 'chuangshi',
@@ -50,7 +53,7 @@ function* search(name, author) {
       src: src
     };
   });
-  let result = _.find(books, function(item) {
+  let result = _.find(_.compact(books), function(item) {
     return item.name === name && (!author || item.author === author);
   });
   if (!result) {

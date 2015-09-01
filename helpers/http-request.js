@@ -35,26 +35,26 @@ function* handle(req) {
   processedTotal++;
   sdc.increment('request.processing');
 
-  let fs = require('fs');
-  let path = require('path');
-  let file = path.join(__dirname, '../search.txt');
-  if (req.url ===
-    'http://chuangshi.qq.com/search/searchindex?type=all&wd=%E4%B8%83%E7%95%8C%E6%AD%A6%E7%A5%9E'
-  ) {
-    file = path.join(__dirname, '../search.txt');
-  } else if (req.url === 'http://chuangshi.qq.com/bk/xh/243446-l.html') {
-    file = path.join(__dirname, '../list.txt');
-  } else if (req.url === 'http://chuangshi.qq.com/bk/xh/243446-r-1.html') {
-    file = path.join(__dirname, '../content.txt');
-  }
-  let str = yield new Promise(function(resolve, reject) {
-    fs.readFile(file, 'utf8', function(err, str) {
-      resolve(str);
-    });
-  });
-  return {
-    text: str
-  };
+  // let fs = require('fs');
+  // let path = require('path');
+  // let file = path.join(__dirname, '../search.txt');
+  // if (req.url ===
+  //   'http://chuangshi.qq.com/search/searchindex?type=all&wd=%E4%B8%83%E7%95%8C%E6%AD%A6%E7%A5%9E'
+  // ) {
+  //   file = path.join(__dirname, '../search.txt');
+  // } else if (req.url === 'http://chuangshi.qq.com/bk/xh/243446-l.html') {
+  //   file = path.join(__dirname, '../list.txt');
+  // } else if (req.url === 'http://chuangshi.qq.com/bk/xh/243446-r-1.html') {
+  //   file = path.join(__dirname, '../content.txt');
+  // }
+  // let str = yield new Promise(function(resolve, reject) {
+  //   fs.readFile(file, 'utf8', function(err, str) {
+  //     resolve(str);
+  //   });
+  // });
+  // return {
+  //   text: str
+  // };
 
   try {
     res = yield new Promise(function(resolve, reject) {

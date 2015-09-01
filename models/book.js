@@ -33,6 +33,15 @@ module.exports = {
     chapters: [],
     sources: []
   },
+  indexes: [{
+    name: 1
+  }, {
+    author: 1
+  }, {
+    category: 1
+  }, {
+    latestUpdatedAt: -1
+  }],
   pre: {
     validate: validate
   }
