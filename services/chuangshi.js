@@ -24,7 +24,11 @@ function* search(name, author) {
   let $ = cheerio.load(res.text);
   let getId = function(url) {
     let reg = /(\d+).html/;
-    return parseInt(reg.exec(url)[1]);
+    let result = reg.exec(url);
+    if (!result) {
+      return;
+    }
+    return parseInt(result[1]);
   };
   let books = _.map($('#searchResultList li'), function(item) {
     item = $(item);
@@ -39,9 +43,13 @@ function* search(name, author) {
     let category = regResult[3].trim().replace(/[\[\]]/g, '');
     let tags = regResult[4].trim().split(/\s/);
     let desc = regResult[5].trim();
+    let id = getId(item.find('.search_r_img a').attr('href'));
+    if (!id) {
+      return;
+    }
     let src = {
       type: 'chuangshi',
-      id: getId(item.find('.search_r_img a').attr('href'))
+      id: id
     };
     return {
       name: name,

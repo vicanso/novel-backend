@@ -12,7 +12,7 @@ module.exports = [{
   route: [
     '/1/books/count',
     '/1/books/count/category/:category',
-    '/1/books/list/author/:author'
+    '/1/books/count/author/:author'
   ],
   handler: 'book.count'
 }, {
