@@ -83,7 +83,7 @@ function* chapters(id) {
   let chaptersList = [];
   _.forEach($('.indexbox .list a'), function(item) {
     item = $(item);
-    let reg = /字数：(\d+)[\s\S]*更新时间：([\s\S]+)/
+    let reg = /字数：(\d+)[\s\S]*更新时间：([\s\S]+)/;
     let result = reg.exec(item.attr('title'));
     if (result) {
       let count = parseInt(result[1]);

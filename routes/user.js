@@ -7,4 +7,7 @@ module.exports = [{
   route: '/1/user/favor',
   method: 'post',
   handler: 'user.favor'
+}, {
+  route: '/1/user/favorites',
+  handler: 'user.favorites'
 }];

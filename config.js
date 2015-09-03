@@ -40,6 +40,6 @@ exports.appSetting = {
   }
 };
 
-exports.mongodb = process.env.MONGODB || 'mongodb://mongodb:27017/novel'
+exports.mongodb = process.env.MONGODB || 'mongodb://mongodb:27017/novel';
 
 exports.consul = process.env.CONSUL || 'http://192.168.1.10:8500';

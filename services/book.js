@@ -10,6 +10,7 @@ exports.get = get;
 exports.update = update;
 exports.list = list;
 exports.count = count;
+exports.getBookByIds = getBookByIds;
 
 /**
  * [add description]
@@ -41,7 +42,7 @@ function* add(name, author) {
     throw errors.get('已添加该小说');
   }
   data.sources = srcList;
-  return yield new Book(data).save()
+  return yield new Book(data).save();
 }
 
 /**
@@ -109,4 +110,16 @@ function* count(conditions) {
   debug('book count conditions:%j', conditions);
   let Book = mongodb.model('Book');
   return yield Book.count(conditions).exec();
+}
+
+function* getBookByIds(ids, fields) {
+  let Book = mongodb.model('Book');
+  let docs = yield Book.find({
+    _id: {
+      '$in': ids
+    }
+  }, fields).exec();
+  return _.map(docs, function(item) {
+    return item.toJSON();
+  });
 }
