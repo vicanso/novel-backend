@@ -2,9 +2,9 @@ FROM vicanso/iojs
 
 MAINTAINER "vicansocanbico@gmail.com"
 
-ADD ./ /node-app
+ADD ./ /novel-backend
 
-RUN cd /node-app \
+RUN cd /novel-backend \
   && npm install --production  --registry=https://registry.npm.taobao.org
 
-CMD cd /node-app && pm2 start pm2.json && tail -f package.json
+CMD cd /novel-backend && NODE_ENV=production node app
