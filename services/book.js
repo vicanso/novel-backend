@@ -11,6 +11,7 @@ exports.update = update;
 exports.list = list;
 exports.count = count;
 exports.getBookByIds = getBookByIds;
+exports.behaviour = behaviour;
 
 /**
  * [add description]
@@ -112,6 +113,12 @@ function* count(conditions) {
   return yield Book.count(conditions).exec();
 }
 
+/**
+ * [getBookByIds description]
+ * @param  {[type]} ids    [description]
+ * @param  {[type]} fields [description]
+ * @return {[type]}        [description]
+ */
 function* getBookByIds(ids, fields) {
   let Book = mongodb.model('Book');
   let docs = yield Book.find({
@@ -122,4 +129,21 @@ function* getBookByIds(ids, fields) {
   return _.map(docs, function(item) {
     return item.toJSON();
   });
+}
+
+/**
+ * [behaviour description]
+ * @param  {[type]} type [description]
+ * @param  {[type]} id   [description]
+ * @return {[type]}      [description]
+ */
+function* behaviour(type, id) {
+  let Book = mongodb.model('Book');
+  let update = {};
+  update[type + '.total'] = 1;
+  update[type + '.today'] = 1;
+  let doc = yield Book.findByIdAndUpdate(id, {
+    '$inc': update
+  }).exec();
+  return doc.toJSON();
 }

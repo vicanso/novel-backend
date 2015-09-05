@@ -23,6 +23,10 @@ module.exports = [{
   middleware: 'common.no-query',
   handler: 'book.update'
 }, {
+  route: '/1/books/user/:type',
+  method: 'post',
+  handler: 'book.behaviour'
+}, {
   route: '/1/books/:id',
   middleware: 'common.no-query',
   handler: 'book.get'

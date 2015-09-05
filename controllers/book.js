@@ -6,6 +6,7 @@ exports.get = get;
 exports.update = update;
 exports.list = list;
 exports.count = count;
+exports.behaviour = behaviour;
 
 /**
  * [add description]
@@ -98,5 +99,17 @@ function* count() {
   ctx.body = {
     total: total
   };
+}
 
+function* behaviour() {
+  /*jshint validthis:true */
+  let ctx = this;
+  let params = Joi.validateThrow(ctx.params, {
+    type: Joi.string().valid(['like', 'view'])
+  });
+  let data = Joi.validateThrow(ctx.request.body, {
+    id: Joi.string()
+  });
+  let result = yield book.behaviour(params.type, data.id);
+  ctx.body = null;
 }

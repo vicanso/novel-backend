@@ -26,6 +26,26 @@ module.exports = {
       type: String,
       required: true
     },
+    view: {
+      total: {
+        type: Number,
+        'default': 0
+      },
+      today: {
+        type: Number,
+        'default': 0
+      }
+    },
+    like: {
+      total: {
+        type: Number,
+        'default': 0
+      },
+      today: {
+        type: Number,
+        'default': 0
+      }
+    },
     tags: Array,
     cover: String,
     chapters: [],

@@ -39,6 +39,7 @@ function* favor() {
   ctx.body = null;
 }
 
+
 function* favorites() {
   /*jshint validthis:true */
   let ctx = this;
