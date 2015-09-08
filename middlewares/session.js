@@ -2,9 +2,12 @@
 const debug = localRequire('helpers/debug');
 const _ = require('lodash');
 const zipkin = localRequire('helpers/zipkin');
+const userService = localRequire('services/user');
+const errors = localRequire('errors');
 let sessionParser = null;
 exports.init = init;
 exports.get = get;
+
 
 /**
  * [init 初始化session redis client]
@@ -31,19 +34,14 @@ function init(redisConfig, sessionConfig) {
  * @param  {Function} next [description]
  * @return {[type]}        [description]
  */
-function *get(next) {
+function* get(next) {
   /*jshint validthis:true */
   let ctx = this;
-  if (!sessionParser) {
-    yield* next;
-  } else {
-    let options = ctx.zipkinTrace;
-    let done = zipkin.childTrace('session', options).done;
-    let fn = function *() {
-      done();
-      yield* next;
-    };
-    yield* sessionParser.call(ctx, fn());
-
+  let id = ctx.get('jt-token');
+  if (!id) {
+    throw errors.get('user is not login', 403);
   }
+  let data = yield userService.get(id);
+  ctx.jtUser = data;
+  yield * next;
 }

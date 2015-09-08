@@ -46,6 +46,16 @@ module.exports = {
         'default': 0
       }
     },
+    favor: {
+      total: {
+        type: Number,
+        'default': 0
+      },
+      today: {
+        type: Number,
+        'default': 0
+      }
+    },
     tags: Array,
     cover: String,
     chapters: [],
@@ -65,7 +75,11 @@ module.exports = {
   }
 };
 
-
+/**
+ * [validate description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
 function validate(next) {
   /*jshint validthis:true */
   let self = this;

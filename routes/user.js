@@ -10,4 +10,13 @@ module.exports = [{
 }, {
   route: '/1/user/favorites',
   handler: 'user.favorites'
+}, {
+  route: '/1/user/behaviour/:type',
+  method: 'post',
+  handler: 'user.behaviour'
+}, {
+  route: '/1/user/comment/:bookId',
+  method: 'post',
+  middleware: 'session.get',
+  handler: 'user.comment'
 }];

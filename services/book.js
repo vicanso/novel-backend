@@ -6,12 +6,13 @@ const errors = localRequire('errors');
 const debug = localRequire('helpers/debug');
 const _ = require('lodash');
 exports.add = add;
-exports.get = get;
+exports.getById = getById;
 exports.update = update;
 exports.list = list;
 exports.count = count;
-exports.getBookByIds = getBookByIds;
+exports.getByIds = getByIds;
 exports.behaviour = behaviour;
+exports.get = get;
 
 /**
  * [add description]
@@ -47,15 +48,31 @@ function* add(name, author) {
 }
 
 /**
- * [get description]
+ * [getById description]
  * @param  {[type]} id     [description]
  * @param  {[type]} fields [description]
  * @return {[type]}        [description]
  */
-function* get(id, fields) {
+function* getById(id, fields) {
   let Book = mongodb.model('Book');
   fields = fields || '';
   return yield Book.findById(id, fields).exec();
+}
+
+
+/**
+ * [get description]
+ * @param  {[type]} conditions [description]
+ * @param  {[type]} options    [description]
+ * @param  {[type]} fields     [description]
+ * @return {[type]}            [description]
+ */
+function* get(conditions, options, fields) {
+  let Book = mongodb.model('Book');
+  let docs = yield Book.find(conditions, fields).setOptions(options).exec();
+  return _.map(docs, function(doc) {
+    return doc.toJSON();
+  });
 }
 
 /**
@@ -114,12 +131,12 @@ function* count(conditions) {
 }
 
 /**
- * [getBookByIds description]
+ * [getByIds description]
  * @param  {[type]} ids    [description]
  * @param  {[type]} fields [description]
  * @return {[type]}        [description]
  */
-function* getBookByIds(ids, fields) {
+function* getByIds(ids, fields) {
   let Book = mongodb.model('Book');
   let docs = yield Book.find({
     _id: {

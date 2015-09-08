@@ -8,6 +8,7 @@ exports.create = create;
 exports.get = get;
 exports.favor = favor;
 exports.favorites = favorites;
+exports.list = list;
 
 /**
  * [create description]
@@ -58,7 +59,7 @@ function* favorites(id, fields) {
   if (!myFavorites.length) {
     return;
   }
-  return yield bookService.getBookByIds(myFavorites, fields);
+  return yield bookService.getByIds(myFavorites, fields);
 }
 
 /**
@@ -75,4 +76,23 @@ function* getUserById(id) {
     throw errors.get('user is not found');
   }
   return doc;
+}
+
+
+/**
+ * [list description]
+ * @param  {[type]} conditions [description]
+ * @param  {[type]} options    [description]
+ * @param  {[type]} fields     [description]
+ * @return {[type]}            [description]
+ */
+function* list(conditions, options, fields) {
+  debug('user query conditions:%j, options:%j, fields:%s', conditions,
+    options,
+    fields);
+  let User = mongodb.model('User');
+  let docs = yield User.find(conditions, fields).setOptions(options).exec();
+  return _.map(docs, function(doc) {
+    return doc.toJSON();
+  });
 }

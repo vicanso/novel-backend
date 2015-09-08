@@ -16,6 +16,9 @@ module.exports = [{
   ],
   handler: 'book.count'
 }, {
+  route: '/1/books/search',
+  handler: 'book.search'
+}, {
   route: ['/1/books/add/:name', '/1/books/add/:name/:author'],
   handler: 'book.add'
 }, {
@@ -30,4 +33,7 @@ module.exports = [{
   route: '/1/books/:id',
   middleware: 'common.no-query',
   handler: 'book.get'
+}, {
+  route: '/1/books/:id/comments',
+  handler: 'book.comments'
 }];
