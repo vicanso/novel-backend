@@ -1,6 +1,7 @@
 'use strict';
 const bookService = localRequire('services/book');
 const commentService = localRequire('services/comment');
+const chapterService = localRequire('services/chapter');
 const Joi = require('joi');
 const _ = require('lodash');
 exports.add = add;
@@ -11,7 +12,7 @@ exports.count = count;
 exports.behaviour = behaviour;
 exports.comments = comments;
 exports.search = search;
-
+exports.addChapter = addChapter;
 
 /**
  * [add description]
@@ -157,6 +158,8 @@ function* search() {
   /*jshint validthis:true */
   let ctx = this;
   let query = Joi.validateThrow(ctx.query, {
+    name: Joi.string().optional(),
+    author: Joi.string().optional(),
     skip: Joi.number().default(0),
     limit: Joi.number().default(6),
     sort: Joi.string().default('-latestUpdatedAt'),
@@ -170,4 +173,21 @@ function* search() {
   let result = yield bookService.get(conditions, options, fields);
   ctx.set('Cache-Control', 'public, max-age=60');
   ctx.body = result;
+}
+
+/**
+ * [addChapter description]
+ * @return {[type]} [description]
+ */
+function* addChapter() {
+  /*jshint validthis:true */
+  let ctx = this;
+  let bookId = ctx.params.id;
+  let data = Joi.validateThrow(ctx.request.body, {
+    title: Joi.string().min(1),
+    content: Joi.string().min(500)
+  });
+  data.book = bookId;
+  let result = yield chapterService.add(data);
+  ctx.body = null;
 }

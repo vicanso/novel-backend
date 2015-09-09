@@ -1,5 +1,6 @@
 'use strict';
 module.exports = [{
+  // book list
   route: [
     '/1/books/list',
     '/1/books/list/category/:category',
@@ -9,6 +10,7 @@ module.exports = [{
   ],
   handler: 'book.list'
 }, {
+  // count books
   route: [
     '/1/books/count',
     '/1/books/count/category/:category',
@@ -16,12 +18,15 @@ module.exports = [{
   ],
   handler: 'book.count'
 }, {
+  // search book
   route: '/1/books/search',
   handler: 'book.search'
 }, {
+  // add book
   route: ['/1/books/add/:name', '/1/books/add/:name/:author'],
   handler: 'book.add'
 }, {
+  // update book
   route: '/1/books/update/:id',
   middleware: 'common.no-query',
   handler: 'book.update'
@@ -36,4 +41,8 @@ module.exports = [{
 }, {
   route: '/1/books/:id/comments',
   handler: 'book.comments'
+}, {
+  route: '/1/books/:id/chapter/add',
+  method: 'post',
+  handler: 'book.addChapter'
 }];
